@@ -23,4 +23,4 @@ Code can also be run from the command line using the ```main.py``` script.
 $ python main.py [-h] -i INPUT [-n BMIN] [-p]
 ```
 
-Input and minimum number of blocks (defaults to 10) are passed as arguments. Option flag ```-p``` enables a visualization of the statistical inefficiency estimation. A correlated sample timeseries data/sample.dat is provided.
+Input and minimum number of blocks (defaults to 10) are passed as arguments. Optional flag ```-p``` enables a visualization of the statistical inefficiency estimation. A correlated sample timeseries ```data/sample.dat``` is provided.
