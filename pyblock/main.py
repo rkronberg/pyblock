@@ -17,14 +17,17 @@ def parse():
 def main():
 
 	args = parse()
+	inp = args['input']
+	bmin = args['bmin']
+	isplot = args['plot']
 
-	print('Computing average with error estimate for correlated timeseries %s' % args['input'])
+	print('Computing average with error estimate for correlated timeseries %s' % inp)
 	
 	# Load data
-	data = np.loadtxt(args['input'])
+	data = np.loadtxt(inp)
 
 	# Proceed with the block averaging
-	blk = Blocked(data, args['bmin'])
+	blk = Blocked(data, bmin)
 	blk.run()
 
 	# Compute an error estimate for the average
@@ -33,7 +36,7 @@ def main():
 	print('\n<x> = %.4f +/- %.4f' % (blk.run_ave, blk.err))
 
 	# Visual evaluation
-	if(args['plot']):
+	if(isplot):
 		plt.plot(blk.sizes, blk.s)
 		plt.plot(blk.sizes, blk.fit(blk.sizes, *blk.popt))
 		plt.axhline(blk.popt[0])
