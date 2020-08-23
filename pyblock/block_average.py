@@ -25,16 +25,17 @@ class Blocked:
 	
 		# Length of timeseries and a list of all block sizes
 		self.ntot = len(data)
-		self.sizes = range(1, int(self.ntot/bmin))
-	
-		# Initialize blocked variances
-		self.vars = np.zeros(len(self.sizes))
+		self.sizes = range(1, int(len(data)/bmin))
 
 	# Block average
 	def run(self):
 
+		# Initialize blocked variances
+		self.vars = np.zeros(len(self.sizes))
+
 		for i, size in enumerate(self.sizes):
-			print('Processing blocks %.1f %%' % (100*i/len(self.sizes)), end='\r')
+			progress = 100*i/len(self.sizes)
+			print('Processing blocks %.1f %%' % progress, end='\r')
 
 			# Truncate data appropriately from the beginning
 			mod = self.ntot%size
@@ -63,4 +64,3 @@ class Blocked:
 		
 		# Statistical inefficiency given by the limit as x -> inf (popt[0])
 		self.err = np.sqrt(self.run_var*self.popt[0]/self.ntot)
-		
