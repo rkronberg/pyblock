@@ -31,7 +31,7 @@ class Blocked:
 	def run(self):
 
 		# Initialize blocked variances
-		self.vars = np.zeros(len(self.sizes))
+		self.vars = np.empty(len(self.sizes))
 
 		for i, size in enumerate(self.sizes):
 			progress = 100*i/len(self.sizes)
