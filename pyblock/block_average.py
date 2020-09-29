@@ -59,9 +59,12 @@ class Blocked:
         self.fit = lambda x, a, b: a*(1-np.exp(-b*x))
 
         # Fit asymptotic function to s
+        # Statistical inefficiency given by the limit as x -> inf (popt[0])
         with warnings.catch_warnings():
             warnings.simplefilter('ignore')
-            self.popt, self.pcov = curve_fit(self.fit, self.sizes, self.s)
-
-        # Statistical inefficiency given by the limit as x -> inf (popt[0])
-        self.err = np.sqrt(self.run_var*self.popt[0]/self.ntot)
+            try:
+                self.popt, pcov = curve_fit(self.fit, self.sizes, self.s)
+                self.err = np.sqrt(self.run_var*self.popt[0]/self.ntot)
+            except RuntimeError:
+                print('Unable to fit statistical inefficiency estimate.')
+                self.err = np.nan

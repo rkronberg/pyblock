@@ -25,8 +25,7 @@ def main():
     bmin = args['bmin']
     isplot = args['plot']
 
-    print('Computing average with error estimate for \
-        correlated timeseries %s' % inp)
+    print('Computing average and error estimate for correlated data %s' % inp)
 
     # Load data
     data = np.loadtxt(inp)
@@ -43,8 +42,9 @@ def main():
     # Visual evaluation
     if(isplot):
         plt.plot(blk.sizes, blk.s)
-        plt.plot(blk.sizes, blk.fit(blk.sizes, *blk.popt))
-        plt.axhline(blk.popt[0])
+        if ~np.isnan(blk.err):
+            plt.plot(blk.sizes, blk.fit(blk.sizes, *blk.popt))
+            plt.axhline(blk.popt[0])
         plt.show()
 
 
